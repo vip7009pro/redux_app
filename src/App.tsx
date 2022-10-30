@@ -2,7 +2,7 @@ import './App.css';
 import React,{useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
 import {useDispatch} from "react-redux"
-import {update} from "./redux/userSlice"
+import {update, update_socket} from "./redux/userSlice"
 import { animated, useSpring, useTransition } from '@react-spring/web'
 import useOnclickOutside from "react-cool-onclickoutside";
 
@@ -32,6 +32,10 @@ function App() {
       avatar: "avatar url- 1234",
     }));
   }
+
+  const handle_emitsockettest =()=>{
+    dispatch(update_socket({}));
+  }
   useEffect(() => {
     handle_dispatchFunction();  
     return () => {      
@@ -41,7 +45,7 @@ function App() {
   return (
     <div className='App'>
       <header className='App-header'>
-        <button onClick={()=>setShow(!show)}>Change show</button>
+        <button onClick={()=>{setShow(!show); handle_emitsockettest();}}>Change show</button>
         {
           transition((style, item)=> item? <animated.div style={style} className='item'  ref={ref}/>: '')
         }
